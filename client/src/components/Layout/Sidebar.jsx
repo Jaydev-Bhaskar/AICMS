@@ -14,6 +14,14 @@ const NAV_ITEMS = [
   { to: '/users', label: 'Users', icon: UsersIcon, adminOnly: true },
 ];
 
+const STUDENT_NAV_ITEMS = [
+  { to: '/complaints', label: 'My Grievances', icon: ComplaintsIcon },
+  { to: '/lodge-complaint', label: 'Lodge Grievance', icon: LiveIcon },
+  { to: '/track-complaint', label: 'Track Status', icon: OverlapIcon },
+  { to: '/institutions', label: 'Institutions', icon: InstitutionsIcon },
+  { to: '/settings', label: 'My Profile', icon: SettingsIcon },
+];
+
 function Sidebar() {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
@@ -23,21 +31,23 @@ function Sidebar() {
     navigate('/login');
   };
 
+  const isStudent = user?.role === 'student';
   const isAdmin = user?.role === 'superadmin' || user?.role === 'admin';
+  const currentNav = isStudent ? STUDENT_NAV_ITEMS : NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin);
 
   return (
     <aside className="sidebar">
-      {/* Logo — circular seal + AICMS text */}
+      {/* Logo — circular seal + UGMS branding */}
       <div className="sidebar-logo">
         <div className="sidebar-logo-seal">
           <AicteSeal />
         </div>
-        <span className="sidebar-logo-text">AICMS</span>
+        <span className="sidebar-logo-text">AICTE UGMS</span>
       </div>
 
       {/* Navigation */}
       <nav className="sidebar-nav">
-        {NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin).map((item) => (
+        {currentNav.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}

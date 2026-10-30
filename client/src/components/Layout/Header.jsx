@@ -136,6 +136,7 @@ const formatRole = (role) => {
     bureau_officer: 'Bureau Officer',
     regional_officer: 'Regional Officer',
     viewer: 'Viewer',
+    student: 'Student',
   };
   return map[role] || role;
 };

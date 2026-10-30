@@ -16,6 +16,7 @@ import OverlapAlertsPage from './pages/OverlapAlertsPage';
 import UsersPage from './pages/UsersPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import StudentGrievancePage from './pages/StudentGrievancePage';
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuthStore();
@@ -43,6 +44,11 @@ function App() {
         }}
       />
       <Routes>
+        {/* Public Student & Citizen Grievance Portal */}
+        <Route path="/lodge-complaint" element={<StudentGrievancePage />} />
+        <Route path="/track-complaint" element={<StudentGrievancePage />} />
+        <Route path="/student-portal" element={<StudentGrievancePage />} />
+
         <Route
           path="/login"
           element={

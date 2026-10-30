@@ -9,9 +9,10 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: [true, 'Password is required'], minlength: [8, 'Password must be at least 8 characters'], select: false },
     role: {
       type: String,
-      enum: ['superadmin', 'admin', 'rb_officer', 'pgrc_officer', 'bureau_officer', 'regional_officer', 'viewer'],
+      enum: ['superadmin', 'admin', 'rb_officer', 'pgrc_officer', 'bureau_officer', 'regional_officer', 'viewer', 'student'],
       default: 'viewer',
     },
+    institution: { type: mongoose.Schema.Types.ObjectId, ref: 'Institution', default: null },
     bureau: { type: mongoose.Schema.Types.ObjectId, ref: 'Bureau', default: null },
     designation: { type: String, trim: true },
     phone: { type: String, trim: true },

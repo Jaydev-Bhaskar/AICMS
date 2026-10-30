@@ -6,16 +6,15 @@ const {
 } = require('../controllers/institutionController');
 const { protect, authorize } = require('../middleware/authMiddleware');
 
+// Public read endpoints for student dropdown & profile view
+router.get('/', getInstitutions);
+router.get('/:id', getInstitution);
+
+// Protected endpoints for modifications
 router.use(protect);
-
-router.route('/')
-  .get(getInstitutions)
-  .post(authorize('superadmin', 'admin'), createInstitution);
-
-router.route('/:id')
-  .get(getInstitution)
-  .put(authorize('superadmin', 'admin'), updateInstitution)
-  .delete(authorize('superadmin'), deleteInstitution);
+router.post('/', authorize('superadmin', 'admin'), createInstitution);
+router.put('/:id', authorize('superadmin', 'admin'), updateInstitution);
+router.delete('/:id', authorize('superadmin'), deleteInstitution);
 
 module.exports = router;
 

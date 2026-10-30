@@ -18,11 +18,11 @@ const CATEGORIES = [
 
 const actionSchema = new mongoose.Schema({
   actionDate: { type: Date, default: Date.now },
-  actionBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  actionBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
   bureau: { type: mongoose.Schema.Types.ObjectId, ref: 'Bureau' },
   actionType: {
     type: String,
-    enum: ['Created', 'Updated', 'Assigned', 'Transferred', 'Escalated', 'Remark Added', 'Document Added', 'Status Changed', 'Disposed', 'Closed'],
+    enum: ['Submitted', 'Created', 'Updated', 'Assigned', 'Transferred', 'Escalated', 'Remark Added', 'Document Added', 'Status Changed', 'Disposed', 'Closed'],
     required: true,
   },
   remarks: { type: String },
@@ -122,7 +122,7 @@ complaintSchema.pre('save', async function (next) {
   if (!this.caseId) {
     const count = await this.constructor.countDocuments();
     const year = new Date().getFullYear();
-    this.caseId = `AICMS-${year}-${String(count + 1).padStart(5, '0')}`;
+    this.caseId = `UGMS-${year}-${String(count + 1).padStart(5, '0')}`;
   }
   // Set SLA expected disposal date
   if (!this.expectedDisposalDate && this.receivedDate) {

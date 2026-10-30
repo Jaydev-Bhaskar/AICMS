@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import toast from 'react-hot-toast';
 import './LoginPage.css';
@@ -35,22 +35,23 @@ function LoginPage() {
             <AicteIcon />
           </div>
           <div>
-            <h1 className="login-brand-name">AICMS</h1>
-            <p className="login-brand-tagline">AICTE Complaint Monitoring System</p>
+            <h1 className="login-brand-name">AICTE UGMS</h1>
+            <p className="login-brand-tagline">Unified Grievance Monitoring System</p>
           </div>
         </div>
 
         <div className="login-hero">
-          <h2>Integrated Dashboard for Institution Complaint Monitoring</h2>
+          <h2>Integrated Monitoring & Cross-Bureau Tracking</h2>
           <p>
-            A single-window platform for AICTE officials to monitor, track, and coordinate
-            institution-related complaint cases across all Bureaus and Cells.
+            Consolidating institution-related complaint cases across AICTE Bureaus and Cells (RB, PGRC, AB)
+            powered by CaseLink AI for explainable cross-bureau overlap detection.
           </p>
           <ul className="login-features">
-            <li><CheckIcon /> Real-time complaint tracking across RB & PGRC</li>
-            <li><CheckIcon /> AI-assisted overlap detection</li>
-            <li><CheckIcon /> SLA monitoring & alerts</li>
-            <li><CheckIcon /> Institution-wise case history</li>
+            <li><CheckIcon /> Cross-Bureau Complaint & Overlap Matching</li>
+            <li><CheckIcon /> Smart Institution Entity Resolution</li>
+            <li><CheckIcon /> Explainable AI Similarity & Signal Breakdown</li>
+            <li><CheckIcon /> Human-in-the-Loop Verification & Audit Trail</li>
+            <li><CheckIcon /> Public Student Grievance Lodging & Live Tracker</li>
           </ul>
         </div>
 
@@ -59,10 +60,23 @@ function LoginPage() {
 
       {/* Right Panel - Form */}
       <div className="login-panel-right">
+        {/* Stakeholder Quick Callout */}
+        <div className="student-portal-callout">
+          <div className="spc-icon">🎓 👨‍🏫 🏛️</div>
+          <div className="spc-text">
+            <strong>Student, Faculty, Parent, or Stakeholder?</strong>
+            <p>Lodge institution-related grievances or track case progress live without an official login.</p>
+          </div>
+          <div className="spc-links">
+            <Link to="/lodge-complaint" className="spc-btn primary">Lodge Grievance</Link>
+            <Link to="/track-complaint" className="spc-btn outline">Track Status</Link>
+          </div>
+        </div>
+
         <div className="login-form-container">
           <div className="login-form-header">
-            <h2>Sign In</h2>
-            <p>Enter your AICTE credentials to access the dashboard</p>
+            <h2>Officer & Staff Sign In</h2>
+            <p>Authorized AICTE officials access portal</p>
           </div>
 
           <form className="login-form" onSubmit={handleSubmit}>
@@ -107,7 +121,7 @@ function LoginPage() {
           </form>
 
           <div className="login-demo-creds">
-            <p className="demo-label">Demo Credentials</p>
+            <p className="demo-label">Demo Credentials (AICTE Officials)</p>
             <div className="demo-creds-grid">
               {[
                 { role: 'Super Admin', email: 'superadmin@aicte.edu.in' },
@@ -130,7 +144,7 @@ function LoginPage() {
         </div>
 
         <p className="login-footer">
-          © {new Date().getFullYear()} All India Council for Technical Education (AICTE). All rights reserved.
+          © {new Date().getFullYear()} All India Council for Technical Education (AICTE) UGMS.
         </p>
       </div>
     </div>

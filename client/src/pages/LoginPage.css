@@ -94,14 +94,73 @@
 
 /* RIGHT PANEL */
 .login-panel-right {
-  width: 480px;
+  width: 520px;
   background: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 48px 40px 24px;
+  padding: 32px 36px 20px;
+  overflow-y: auto;
 }
+
+/* Student Quick Callout */
+.student-portal-callout {
+  width: 100%;
+  max-width: 400px;
+  background: #f0f7ff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.spc-icon { font-size: 20px; }
+
+.spc-text strong {
+  font-size: 13.5px;
+  color: #1e3a8a;
+  display: block;
+}
+
+.spc-text p {
+  font-size: 11.5px;
+  color: #475569;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.spc-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.spc-btn {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.spc-btn.primary {
+  background: #1a3fa6;
+  color: #fff;
+}
+.spc-btn.primary:hover { background: #132e7a; }
+
+.spc-btn.outline {
+  background: #fff;
+  color: #1a3fa6;
+  border: 1px solid #1a3fa6;
+}
+.spc-btn.outline:hover { background: #eff6ff; }
 
 .login-form-container {
   width: 100%;

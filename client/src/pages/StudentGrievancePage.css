@@ -1,0 +1,692 @@
+/* ============================================================
+   AICTE UGMS — Student & Citizen Portal Styles
+   ============================================================ */
+
+.ugms-student-portal {
+  min-height: 100vh;
+  background: #f4f7fc;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font, 'Inter', sans-serif);
+}
+
+/* ── Top Header Bar ── */
+.sp-header {
+  background: #1540a3;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 10px rgba(21, 64, 163, 0.15);
+}
+
+.sp-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sp-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sp-emblem {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.sp-title {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.sp-tagline {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-top: 2px;
+}
+
+.sp-officer-login-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.sp-officer-login-btn:hover {
+  background: #fff;
+  color: #1540a3;
+}
+
+/* ── Hero Banner ── */
+.sp-hero {
+  background: linear-gradient(180deg, #1540a3 0%, #1a4fcf 100%);
+  color: #fff;
+  padding: 36px 24px 30px;
+  text-align: center;
+}
+
+.sp-hero-content {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.sp-badge {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+.sp-hero h2 {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.sp-hero p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.55;
+  max-width: 660px;
+}
+
+/* ── Tab Switcher ── */
+.sp-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 6px;
+  border-radius: 30px;
+}
+
+.sp-tab-btn {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.sp-tab-btn.active {
+  background: #fff;
+  color: #1540a3;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Main Container ── */
+.sp-main {
+  max-width: 900px;
+  width: 100%;
+  margin: -16px auto 40px;
+  padding: 0 20px;
+  flex: 1;
+}
+
+.sp-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e1e7f5;
+  box-shadow: 0 8px 30px rgba(21, 64, 163, 0.08);
+  padding: 34px 38px;
+}
+
+/* ── Form Styling ── */
+.form-section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #edf2f9;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  background: #1540a3;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.form-section-head h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.form-section-head p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 1px 0 0;
+}
+
+.sp-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Stakeholder radio options */
+.stakeholder-radio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.stakeholder-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+
+.stakeholder-chip:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.stakeholder-chip.selected {
+  background: #eff6ff;
+  border-color: #1540a3;
+  color: #1540a3;
+}
+
+.stakeholder-chip input[type="radio"] {
+  accent-color: #1540a3;
+}
+
+.sp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.sp-field label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.sp-field input,
+.sp-field select,
+.sp-field textarea {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 10px 14px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  color: #1e293b;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sp-field input:focus,
+.sp-field select:focus,
+.sp-field textarea:focus {
+  border-color: #1540a3;
+  box-shadow: 0 0 0 3px rgba(21, 64, 163, 0.12);
+}
+
+.field-hint {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.form-submit-row {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sp-submit-btn {
+  background: #1540a3;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(21, 64, 163, 0.25);
+  transition: all 0.2s ease;
+}
+
+.sp-submit-btn:hover:not(:disabled) {
+  background: #103387;
+  transform: translateY(-1px);
+}
+
+.sp-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Success Receipt ── */
+.sp-success-receipt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.success-icon-wrap {
+  margin-bottom: 14px;
+}
+
+.sp-success-receipt h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.success-sub {
+  font-size: 13px;
+  color: #64748b;
+  max-width: 480px;
+  margin-top: 4px;
+  margin-bottom: 22px;
+}
+
+.case-id-highlight {
+  background: #f0fdf4;
+  border: 2px dashed #10b981;
+  padding: 16px 36px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.cid-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #047857;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cid-value {
+  font-size: 26px;
+  font-weight: 900;
+  color: #065f46;
+  letter-spacing: 1px;
+}
+
+.receipt-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.rd-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rd-lbl { font-size: 11px; color: #64748b; font-weight: 600; }
+.rd-val { font-size: 13px; color: #1e293b; font-weight: 700; }
+
+.status-pill-initial {
+  color: #d97706;
+}
+
+.receipt-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.sp-btn-primary {
+  background: #1540a3;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 11px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sp-btn-primary:hover { background: #0f2e75; }
+
+.sp-btn-outline {
+  background: #fff;
+  color: #334155;
+  border: 1.5px solid #cbd5e1;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 11px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sp-btn-outline:hover { background: #f1f5f9; }
+
+/* ── Track Section ── */
+.track-search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.track-search-bar label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.track-input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.track-input-group input {
+  flex: 1;
+  font-size: 14px;
+  padding: 12px 18px;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+  font-family: inherit;
+}
+
+.track-input-group input:focus {
+  border-color: #1540a3;
+  box-shadow: 0 0 0 3px rgba(21, 64, 163, 0.12);
+}
+
+.track-search-btn {
+  background: #1540a3;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 0 26px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.track-search-btn:hover { background: #0f2e75; }
+
+.track-error-box {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* ── Track Result Card ── */
+.track-result-panel {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 24px;
+}
+
+.track-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.track-cid {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1540a3;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.track-inst-name {
+  font-size: 19px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.track-inst-meta {
+  font-size: 12.5px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.track-status-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.track-priority-chip {
+  font-size: 11px;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.track-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.tm-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tm-label { font-size: 11px; color: #64748b; font-weight: 600; }
+.tm-val { font-size: 13px; color: #1e293b; font-weight: 700; }
+
+/* ── Timeline Stepper ── */
+.track-timeline-section h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+}
+
+.track-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.track-stepper::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 7px;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.track-step-item {
+  position: relative;
+  padding-bottom: 22px;
+}
+
+.step-marker {
+  position: absolute;
+  left: -20px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1540a3;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #1540a3;
+}
+
+.step-content {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1540a3;
+}
+
+.step-time {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.step-desc {
+  font-size: 12.5px;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.step-status-chip {
+  font-size: 11px;
+  font-weight: 600;
+  color: #047857;
+  background: #d1fae5;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.no-timeline {
+  font-size: 13px;
+  color: #64748b;
+  padding: 12px 0;
+}
+
+/* ── 6 Core Pillars Footer ── */
+.sp-pillars-footer {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 28px 24px;
+  margin-top: auto;
+}
+
+.pillars-container {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.pillars-head {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 20px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.pillar-item strong {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .sp-grid-2,
+  .receipt-details-grid,
+  .track-meta-grid,
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .track-header-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .track-status-box {
+    align-items: flex-start;
+  }
+}

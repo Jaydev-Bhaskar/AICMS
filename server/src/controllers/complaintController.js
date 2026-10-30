@@ -40,7 +40,9 @@ const getComplaints = asyncHandler(async (req, res) => {
   }
 
   // Role-based filtering
-  if (req.user.role === 'rb_officer' || req.user.role === 'pgrc_officer' || req.user.role === 'bureau_officer') {
+  if (req.user.role === 'student') {
+    filter.complainantEmail = req.user.email;
+  } else if (req.user.role === 'rb_officer' || req.user.role === 'pgrc_officer' || req.user.role === 'bureau_officer') {
     if (req.user.bureau) filter.assignedBureau = req.user.bureau;
   }
 
@@ -270,5 +272,166 @@ const deleteComplaint = asyncHandler(async (req, res) => {
   res.json({ success: true, message: 'Complaint deactivated' });
 });
 
-module.exports = { getComplaints, getComplaint, createComplaint, updateComplaint, addAction, deleteComplaint };
+// @desc    Lodge complaint publicly by student/stakeholder (no login required)
+// @route   POST /api/complaints/public/lodge
+// @access  Public
+const publicLodgeComplaint = asyncHandler(async (req, res) => {
+  const {
+    institution: institutionId,
+    complainantName,
+    complainantEmail,
+    complainantPhone,
+    complainantType = 'Student',
+    category,
+    subCategory,
+    description,
+    priority = 'Medium',
+    studentRollNo,
+  } = req.body;
+
+  if (!institutionId || !complainantName || !complainantEmail || !category || !description) {
+    return res.status(400).json({
+      success: false,
+      message: 'Please provide institution, complainant name, email, category, and grievance description',
+    });
+  }
+
+  const institution = await Institution.findById(institutionId);
+  if (!institution) {
+    return res.status(404).json({ success: false, message: 'Selected institution not found' });
+  }
+
+  // Find PGRC bureau as default grievance intake cell
+  let defaultBureau = await Bureau.findOne({ code: 'PGRC' });
+  if (!defaultBureau) {
+    defaultBureau = await Bureau.findOne({});
+  }
+
+  const slaDays = defaultBureau ? defaultBureau.sladays : 21;
+
+  const complaint = await Complaint.create({
+    institution: institutionId,
+    complainantName,
+    complainantEmail,
+    complainantPhone,
+    complainantType,
+    category,
+    subCategory,
+    description: studentRollNo ? `[Student Roll/ID: ${studentRollNo}] ${description}` : description,
+    priority,
+    assignedBureau: defaultBureau?._id,
+    region: institution.region,
+    source: 'Online Portal',
+    status: 'Pending',
+    slaDays,
+    actionHistory: [{
+      bureau: defaultBureau?._id,
+      actionType: 'Submitted',
+      remarks: 'Grievance submitted by student via AICTE UGMS Public Portal',
+      toStatus: 'Pending',
+      actionDate: new Date(),
+    }],
+  });
+
+  // Update institution complaint count
+  await Institution.findByIdAndUpdate(institutionId, {
+    $inc: { totalComplaints: 1, pendingComplaints: 1 },
+  });
+
+  // CaseLink AI overlap detection
+  const overlaps = await detectOverlaps(complaint);
+  if (overlaps.length > 0) {
+    complaint.overlapFlags = overlaps.map((o) => o.complaint._id);
+    complaint.overlapRelationships = overlaps.map((o) => ({
+      relatedComplaint: o.complaint._id,
+      relationshipType: o.relationship.type,
+      score: o.relationship.score,
+      evidence: o.relationship.evidence,
+      reviewStatus: 'PENDING',
+    }));
+    await complaint.save();
+
+    await Notification.create({
+      title: 'UGMS AI — Potential Overlapping Student Grievance Detected',
+      message: `Student Case ${complaint.caseId} matches existing cases for institution "${institution.name}". Immediate coordination recommended.`,
+      type: 'overlap_alert',
+      severity: 'warning',
+      complaint: complaint._id,
+      institution: institutionId,
+    });
+  }
+
+  res.status(201).json({
+    success: true,
+    message: 'Grievance lodged successfully',
+    data: {
+      caseId: complaint.caseId,
+      status: complaint.status,
+      receivedDate: complaint.receivedDate,
+      assignedBureau: defaultBureau ? { code: defaultBureau.code, name: defaultBureau.name } : null,
+      expectedDisposalDate: complaint.expectedDisposalDate,
+    },
+  });
+});
+
+// @desc    Track complaint status publicly
+// @route   GET /api/complaints/public/track/:caseId
+// @access  Public
+const publicTrackComplaint = asyncHandler(async (req, res) => {
+  const { caseId } = req.params;
+
+  const complaint = await Complaint.findOne({ caseId: { $regex: new RegExp(`^${caseId.trim()}$`, 'i') }, isActive: true })
+    .populate('institution', 'name aicteId region type address')
+    .populate('assignedBureau', 'name code fullName')
+    .select('caseId status category subCategory priority receivedDate expectedDisposalDate nextAction actionHistory institution assignedBureau slaDays');
+
+  if (!complaint) {
+    return res.status(404).json({ success: false, message: 'No complaint found with this Case ID' });
+  }
+
+  const publicTimeline = (complaint.actionHistory || []).map((a) => ({
+    actionType: a.actionType,
+    toStatus: a.toStatus,
+    remarks: a.remarks,
+    actionDate: a.actionDate,
+  }));
+
+  res.json({
+    success: true,
+    data: {
+      caseId: complaint.caseId,
+      status: complaint.status,
+      category: complaint.category,
+      subCategory: complaint.subCategory,
+      priority: complaint.priority,
+      institution: {
+        name: complaint.institution?.name,
+        aicteId: complaint.institution?.aicteId,
+        region: complaint.institution?.region,
+        city: complaint.institution?.address?.city,
+        state: complaint.institution?.address?.state,
+      },
+      assignedBureau: {
+        code: complaint.assignedBureau?.code,
+        name: complaint.assignedBureau?.name,
+        fullName: complaint.assignedBureau?.fullName,
+      },
+      receivedDate: complaint.receivedDate,
+      expectedDisposalDate: complaint.expectedDisposalDate,
+      nextAction: complaint.nextAction,
+      timeline: publicTimeline,
+    },
+  });
+});
+
+module.exports = {
+  getComplaints,
+  getComplaint,
+  createComplaint,
+  updateComplaint,
+  addAction,
+  deleteComplaint,
+  publicLodgeComplaint,
+  publicTrackComplaint,
+};
 
