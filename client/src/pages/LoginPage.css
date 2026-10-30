@@ -261,6 +261,26 @@
 .login-btn:active:not(:disabled) { transform: scale(0.99); }
 .login-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
+.toggle-register-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 14px;
+  width: 100%;
+  text-align: center;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.toggle-register-btn:hover {
+  background: #f0f4ff;
+  text-decoration: underline;
+}
+
 .login-spinner {
   width: 20px;
   height: 20px;

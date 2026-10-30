@@ -23,6 +23,22 @@ const useAuthStore = create((set, get) => ({
     }
   },
 
+  studentRegister: async (formData) => {
+    set({ isLoading: true, error: null });
+    try {
+      const { data } = await api.post('/auth/student-register', formData);
+      const { token, data: user } = data;
+      localStorage.setItem('aicms_token', token);
+      localStorage.setItem('aicms_user', JSON.stringify(user));
+      set({ user, token, isLoading: false });
+      return { success: true };
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Registration failed';
+      set({ error: msg, isLoading: false });
+      return { success: false, message: msg };
+    }
+  },
+
   logout: () => {
     localStorage.removeItem('aicms_token');
     localStorage.removeItem('aicms_user');
