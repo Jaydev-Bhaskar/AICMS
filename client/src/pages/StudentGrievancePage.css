@@ -75,6 +75,101 @@
   color: #1540a3;
 }
 
+/* Logged-in Header Navigation */
+.sp-logged-user-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sp-user-info-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 5px 14px 5px 6px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.sp-user-avatar-circle {
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  color: #1540a3;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-user-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.sp-user-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.sp-user-role-label {
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.72);
+  text-transform: capitalize;
+}
+
+.sp-back-dashboard-btn {
+  background: #ffffff;
+  color: #1540a3;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sp-back-dashboard-btn:hover {
+  background: #e2eafc;
+  transform: translateY(-1px);
+}
+
+/* Session Notice Bar */
+.sp-session-bar {
+  background: #e0f2fe;
+  border-bottom: 1px solid #bae6fd;
+  color: #0369a1;
+  padding: 10px 24px;
+  font-size: 12.5px;
+}
+
+.sp-session-bar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sp-session-back-link {
+  color: #0284c7;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sp-session-back-link:hover {
+  text-decoration: underline;
+}
+
 /* ── Hero Banner ── */
 .sp-hero {
   background: linear-gradient(180deg, #1540a3 0%, #1a4fcf 100%);

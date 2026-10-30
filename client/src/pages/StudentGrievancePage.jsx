@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import useAuthStore from '../store/authStore';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import StatusBadge from '../components/UI/StatusBadge';
@@ -30,6 +31,9 @@ const CATEGORIES = [
 ];
 
 export default function StudentGrievancePage() {
+  const { user, token } = useAuthStore();
+  const isLoggedIn = !!token && !!user;
+
   const [searchParams] = useSearchParams();
   const initialTab = searchParams.get('tab') === 'track' ? 'track' : 'lodge';
   const [activeTab, setActiveTab] = useState(initialTab);
@@ -42,16 +46,29 @@ export default function StudentGrievancePage() {
 
   const [form, setForm] = useState({
     institution: '',
-    complainantName: '',
-    complainantEmail: '',
-    complainantPhone: '',
-    complainantType: 'Student',
+    complainantName: user?.name || '',
+    complainantEmail: user?.email || '',
+    complainantPhone: user?.phone || '',
+    complainantType: user?.role === 'student' ? 'Student' : 'Student',
     stakeholderId: '',
     category: '',
     subCategory: '',
     priority: 'Medium',
     description: '',
   });
+
+  // Pre-fill user data when user changes
+  useEffect(() => {
+    if (user) {
+      setForm((prev) => ({
+        ...prev,
+        complainantName: prev.complainantName || user.name || '',
+        complainantEmail: prev.complainantEmail || user.email || '',
+        complainantPhone: prev.complainantPhone || user.phone || '',
+        complainantType: user.role === 'student' ? 'Student' : prev.complainantType,
+      }));
+    }
+  }, [user]);
 
   // ── Track Form State ──
   const [trackCaseId, setTrackCaseId] = useState(searchParams.get('caseId') || '');
@@ -134,12 +151,43 @@ export default function StudentGrievancePage() {
             </div>
           </div>
           <div className="sp-nav-actions">
-            <Link to="/login" className="sp-officer-login-btn">
-              AICTE Bureau Sign In →
-            </Link>
+            {isLoggedIn ? (
+              <div className="sp-logged-user-nav">
+                <div className="sp-user-info-chip">
+                  <span className="sp-user-avatar-circle">
+                    {user?.name ? user.name[0].toUpperCase() : 'U'}
+                  </span>
+                  <div className="sp-user-text">
+                    <span className="sp-user-name">{user?.name}</span>
+                    <span className="sp-user-role-label">{user?.role === 'student' ? 'Student' : user?.role}</span>
+                  </div>
+                </div>
+                <Link to="/" className="sp-back-dashboard-btn">
+                  ← Back to Dashboard
+                </Link>
+              </div>
+            ) : (
+              <Link to="/login" className="sp-officer-login-btn">
+                AICTE Bureau Sign In →
+              </Link>
+            )}
           </div>
         </div>
       </header>
+
+      {/* ── Logged In Session Notification Bar ── */}
+      {isLoggedIn && (
+        <div className="sp-session-bar">
+          <div className="sp-session-bar-inner">
+            <span>
+              ℹ️ Logged in session active for <strong>{user?.name}</strong> ({user?.email}). Submissions are auto-linked to your account.
+            </span>
+            <Link to="/" className="sp-session-back-link">
+              ← Back to Dashboard
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* ── Hero Banner ── */}
       <section className="sp-hero">
@@ -228,13 +276,18 @@ export default function StudentGrievancePage() {
                   >
                     Track Progress Live →
                   </button>
+                  {isLoggedIn && (
+                    <Link to="/" className="sp-btn-outline" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                      ← Return to Dashboard
+                    </Link>
+                  )}
                   <button
                     className="sp-btn-outline"
                     onClick={() => {
                       setSubmittedCase(null);
                       setForm({
-                        institution: '', complainantName: '', complainantEmail: '',
-                        complainantPhone: '', complainantType: 'Student', stakeholderId: '',
+                        institution: '', complainantName: user?.name || '', complainantEmail: user?.email || '',
+                        complainantPhone: user?.phone || '', complainantType: 'Student', stakeholderId: '',
                         category: '', subCategory: '', priority: 'Medium', description: '',
                       });
                     }}
