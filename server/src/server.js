@@ -93,9 +93,14 @@ if (process.env.NODE_ENV === 'development') {
 // Static file serving (uploads)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'AICMS API is running', timestamp: new Date().toISOString() });
+// Health check & root ping (handles Render auto-pings and monitoring)
+app.get(['/', '/api/health'], (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'AICMS Backend API is running',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+  });
 });
 
 // API Routes

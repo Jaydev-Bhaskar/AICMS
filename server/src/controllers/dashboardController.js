@@ -54,7 +54,7 @@ const getOverview = asyncHandler(async (req, res) => {
     { $match: { ...filter, status: { $nin: ['Disposed', 'Closed', 'Rejected'] } } },
     { $group: { _id: '$assignedBureau', count: { $sum: 1 } } },
     { $lookup: { from: 'bureaus', localField: '_id', foreignField: '_id', as: 'bureau' } },
-    { $unwind: { path: '$bureau', preserveNullAndEmpty: true } },
+    { $unwind: { path: '$bureau', preserveNullAndEmptyArrays: true } },
     { $project: { bureauName: '$bureau.name', bureauCode: '$bureau.code', count: 1 } },
     { $sort: { count: -1 } },
   ]);

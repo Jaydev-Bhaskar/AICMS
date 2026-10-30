@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement,
-  LineElement, Title, Tooltip, Legend, ArcElement, BarElement,
+  LineElement, Title, Tooltip, Legend, ArcElement, BarElement, Filler,
 } from 'chart.js';
 import { Line, Doughnut, Bar } from 'react-chartjs-2';
 import api from '../services/api';
@@ -10,7 +10,7 @@ import { format, subDays } from 'date-fns';
 import StatusBadge from '../components/UI/StatusBadge';
 import './DashboardPage.css';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement, BarElement);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement, BarElement, Filler);
 
 /* ─── stat card configs matching screenshot icons ─── */
 const STAT_CONFIG = [

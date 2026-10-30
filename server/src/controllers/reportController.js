@@ -29,7 +29,7 @@ const getReport = asyncHandler(async (req, res) => {
           },
         },
         { $lookup: { from: 'bureaus', localField: '_id.bureau', foreignField: '_id', as: 'bureau' } },
-        { $unwind: { path: '$bureau', preserveNullAndEmpty: true } },
+        { $unwind: { path: '$bureau', preserveNullAndEmptyArrays: true } },
         {
           $group: {
             _id: { bureauId: '$_id.bureau', bureauName: '$bureau.name', bureauCode: '$bureau.code' },
